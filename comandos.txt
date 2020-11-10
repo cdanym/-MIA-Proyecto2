@@ -1,0 +1,5 @@
+//Crear variable de entorno
+export LD_LIBRARY_PATH=//home/daniel/instantclient_12_2/
+
+//Visualizar Variable de entorno
+echo $LD_LIBRARY_PATH

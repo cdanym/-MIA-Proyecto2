@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+
+    <div class="container justify-content-center">
+        <a class="navbar-brand" href="#">
+            <img src="https://cdn.svgporn.com/logos/chromatic-icon.svg" width="30" height="30" alt="">
+        </a>
+    </div>
+</nav>
+
+
+
+<div class="container mt-5">
+    <div class="row mt-5 justify-content-center">
+
+        <div class="col-6">
+            <h2>DETALLE DEL PRODUCTO:</h2>
+            <br>
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre:  {{nombre}}</label>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Precio:  {{precio}}</label>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Descripcion: </label>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">{{descripcion}}</label>
+                </div>
+                <br>
+
+                <div class="card" style="width: 18rem;">
+                    <img src="../assets/productos/{{foto}}" class="card-img-top" alt="...">
+                    <br>
+                    <div class="card-body-like">
+                        <label for="exampleInputEmail1"> {{contadorMeGusta}} - </label>
+                        <button (click)="meGusta()" type="submit" class="btn btn-primary btn-sm">Me gusta</button>                            
+                    </div>
+                    <div class="card-body-dislike">
+                        <label for="exampleInputEmail1"> {{contadorNoMeGusta}} - </label>
+                        <button (click)="noMeGusta()" type="submit" class="btn btn-secondary btn-sm">No me gusta</button>
+                    </div>
+                </div>
+
+                <br>
+
+                <button (click)="addCarrito()" type="submit" class="btn btn-primary btn-block">Agregar al carrito</button>
+                
+                <BR>
+                <div class="input-group mb-3">
+                    <input [(ngModel)]="comentario" name="comentario" type="text" class="form-control" placeholder="Nuevo comentario..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button (click)="addComentario()" class="btn btn-outline-secondary" type="submit" >Comentar</button>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        Comentarios:
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" *ngFor="let comentario of Comentarios"> {{comentario.nombre}}: {{comentario.contenido}}</li>
+                        <!--<label for="exampleInputEmail1"> {{comentario.nombre}} </label>-->
+                    </ul>
+                </div>
+                <br><br><br>
+                <div class="input-group mb-3">
+                    <input [(ngModel)]="denuncia" name="denuncia" type="text" class="form-control" placeholder="Agregar denuncia..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                        <button (click)="addDenuncia()" class="btn btn-outline-secondary" type="submit" >Denunciar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+

@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="https://cdn.svgporn.com/logos/chromatic-icon.svg" width="30" height="30" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <button (click)="CerrarSesion()" type="button" class="btn btn-info">Cerrar Sesion</button>
+
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+</nav>
+
+<h1> ADMINISTRADOR </h1>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-4">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nueva Categoria: </label>
+                    <input [(ngModel)]="nombre" name="nombre" placeholder="nombre" type="text" class="form-control"   aria-describedby="emailHelp">
+                </div>
+                <button (click)="addCategoria()" type="submit" class="btn btn-primary btn-block">Agregar</button>
+            </form>
+        </div>
+
+        <div class="col-8">
+            <h2> REPORTES </h2>
+            <div class="row">
+                <select [(ngModel)]="consulta" name="consulta" class="form-control" id="exampleFormControlSelect1">
+                        <option> </option>
+                        <option>Top 10 productos mas vendidos</option>
+                        <option>Top 10 de productos que más “me gusta” han tenido</option>
+                        <option>Top 10 productos con más “no me gusta” han tenido</option>
+                        <option>Top 10 clientes con más y menos créditos</option>
+                        <option>Top 10 clientes que más denuncias han hecho</option>
+                        <option>Top 10 clientes que más publicaciones han hecho</option>
+                        <option>Top 10 de países con más crédito y productos a la venta</option>
+                </select>
+                <button (click)="Consulta()" type="submit" class="btn btn-primary btn-block">Obtener Reporte</button>
+                <br>
+            </div>
+            <br>
+            <ul class="list-group">
+                    <li class="list-group-item active">CONSULTA: </li>
+                    <li class="list-group-item"> ... </li>
+            </ul>
+            <br><hr><br>
+            
+            <h3>DENUNCIAS Y NOTIFICACIONES</h3>
+            <br>
+            <ul class="list-group">
+                    <li class="list-group-item active"> </li>
+                    <li class="list-group-item" *ngFor="let denuncia of Denuncias"> {{denuncia.nombre}}: {{denuncia.contenido}}</li>
+            </ul>
+            
+        </div>
+
+        
+
+    </div>
+</div>

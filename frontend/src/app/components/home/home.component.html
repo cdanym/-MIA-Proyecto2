@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="https://cdn.svgporn.com/logos/chromatic-icon.svg" width="30" height="30" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <button (click)="CerrarSesion()" type="button" class="btn btn-info">Cerrar Sesion</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+    <div class="row">
+
+        <div class="col-4">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button (click)="perfil()" type="button" class="btn btn-secondary">Perfil</button>
+                <button (click)="addProduct()" type="button" class="btn btn-secondary">Agregar producto</button>
+            </div>
+            <br><br><br>
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Buscar producto</label>
+                    <input [(ngModel)]="nombre" name="nombre" placeholder="Buscar producto" type="search" class="form-control"   aria-describedby="emailHelp">
+                </div>
+                <button (click)="buscarProducto()" type="submit" class="btn btn-primary btn-block">Buscar</button>
+                
+                <br><br>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Buscar por categoria</label>
+                    <select [(ngModel)]="categoria" name="categoria" class="form-control" id="exampleFormControlSelect1">
+                        <option>Todo</option>
+                        <option *ngFor="let categoria of Categorias"> {{categoria.nombre}} </option>
+                    </select>
+                </div>
+                <button (click)="buscarPorCategoria()" type="submit" class="btn btn-primary btn-block">Buscar</button>
+
+                <br><br>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Buscar por precio</label>
+                    <input [(ngModel)]="valor" name="valor" placeholder="Buscar producto" type="search" class="form-control"   aria-describedby="emailHelp">
+                </div>
+                <button (click)="buscarPorPrecio()" type="submit" class="btn btn-primary btn-block">Buscar</button>
+
+            </form>
+        </div>
+
+        <div class="col-8">
+            <div class="row">
+
+                <div *ngFor="let producto of Productos" class="col-4"> <!--Productos (home.component.ts)-->
+                    <div class="card bg-light mb-3">
+                        <div class="card-header">Nombre: {{producto.nombre}}</div>
+                            <!--<app-detalle [nombre]="producto.nombre"> </app-detalle>-->
+                        <div class="card-body">
+                            <h5 class="card-title">Precio: {{producto.precio}}</h5>
+                            <img src="../assets/productos/{{producto.foto}}" class="card-img-top" alt="...">
+                            <h5 class="card-title">Descripcion: {{producto.descripcion}}</h5>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit"
+                                class="btn btn-warning btn-block">Agregar al carrito</button>
+                            <button type="submit"
+                                (click)="getDataProducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.foto, producto.id_categoria, producto.id_usuario)"
+                                class="btn btn-warning btn-block">Detalle</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
