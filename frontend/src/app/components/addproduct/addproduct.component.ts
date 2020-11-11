@@ -64,7 +64,7 @@ export class AddproductComponent implements OnInit {
           this.foto = "";
           this.id_categoria = null;
           this.id_usuario = null;
-
+          console.log("Se agrego el nuevo producto");
           this.router.navigate(['/home']);
         } else {
             console.log('No se pudo agregar el producto');

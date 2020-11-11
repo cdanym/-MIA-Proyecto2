@@ -25,29 +25,39 @@ export class RegistrarComponent implements OnInit {
   fecha_nac: string=null;
   correo: string="";
   contrasenia: string="";
+  confirmar: string="";
   foto_perfil: string =null;
   creditos: number = null;
   Usuarios: UserInterface[] = [];
 
   addUser() {
-    this.crudService.AddUser(this.nombre, this.apellido, this.pais, null, this.correo, this.contrasenia, this.foto_perfil, 1000)
-      .subscribe((res: UserInterface[]) => {
-        if (res['Mensaje']) {
-          this.router.navigate(['/crud']);
-          this.Usuarios = res;
-          this.id_usuario = "";
-          this.nombre = "";
-          this.apellido = "";
-          this.pais = "";
-          this.fecha_nac = null;
-          this.correo = "";
-          this.contrasenia ="";
-          this.foto_perfil = null;
-          this.creditos = null;
-        } else {
-            console.log('No se pudo crear el usuario');
-        }
-      })
+    if(this.nombre == "" || this.apellido == "" || this.pais == "" || this.contrasenia == "" || this.confirmar == ""){
+      console.log("HAY CAMPOS VACIOS")
+    }else{
+      if(this.contrasenia == this.confirmar){
+        this.crudService.AddUser(this.nombre, this.apellido, this.pais, null, this.correo, this.contrasenia, this.foto_perfil, 1000)
+        .subscribe((res: UserInterface[]) => {
+          if (res['Mensaje']) {
+            this.router.navigate(['/crud']);
+            this.Usuarios = res;
+            this.id_usuario = "";
+            this.nombre = "";
+            this.apellido = "";
+            this.pais = "";
+            this.fecha_nac = null;
+            this.correo = "";
+            this.contrasenia ="";
+            this.foto_perfil = null;
+            this.creditos = null;
+          } else {
+              console.log('No se pudo crear el usuario');
+          }
+        })
+      }else{
+        console.log("La contrasenia no coincide")
+      }
+    }  
+    
   }
 
 
