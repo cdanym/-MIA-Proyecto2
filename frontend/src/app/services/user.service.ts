@@ -119,6 +119,45 @@ export class UserService {
       ).pipe(map(data => data));
   }
 
+  //ADD CARRITO
+  AddCarrito(nombre:string, precio:number, foto:string, descripcion:string, id_usuario:number, id_producto:number){
+    const url = "http://localhost:3000/addCarrito";
+    return this.http.post(
+      url,
+      //CUERPO EN FORMATO JSON QUE SE ENVIARA AL ENDPOINT addCarrito
+      {
+        "nombre": nombre,
+        "precio": precio,
+        "foto": foto,
+        "descripcion": descripcion,
+        "id_usuario": id_usuario,
+        "id_producto": id_producto
+      },
+      {headers: this.headers}
+      ).pipe(map(data => data));
+  }
+
+  //GET CARRITO DE UN USUARIO
+  GetCarrito(id_usuario){
+    const url = "http://localhost:3000/getCarrito/"+id_usuario;
+    return this.http.get(url);
+  }
+
+  //DELETE CARRITO DE USUARIO Y PRODUCTO
+  DeleteCarrito(id_usuario,id_producto){
+    const url = "http://localhost:3000/deleteCarrito";
+    return this.http.post(
+      url,
+      //CUERPO EN FORMATO JSON QUE SE ENVIARA AL ENDPOINT addCarrito
+      {
+        "id_usuario": id_usuario,
+        "id_producto": id_producto
+      },
+      {headers: this.headers}
+      ).pipe(map(data => data));
+  }
+
+
 
   //GET CATEGORIAS
   GetCategorias(){

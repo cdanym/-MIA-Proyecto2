@@ -26,42 +26,22 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-4">
-            <form>
-                <div class="form-group">
-
-                    <input [(ngModel)]="nombre" name="nombre" placeholder="nombre" type="text" class="form-control"   aria-describedby="emailHelp">
-                
-                </div>
-                <div class="form-group">
-                            <!--ngModel: sirve para conectar input con variables-->
-                    <input  [(ngModel)]="apellido" name="apellido" placeholder="apellido" type="text" class="form-control" >
-                </div>
-                <div class="form-group"> 
-                    <input [(ngModel)]="creditos" name="creditos"  placeholder="creditos" type="text" class="form-control" >
-                </div>
-                <button (click)="addUser()" type="submit" class="btn btn-primary btn-block">Guardar Usuario</button>
-                <button (click)="updateUser()" type="submit" class="btn btn-warning btn-block">Guardar Cambios</button>
-
-            </form>
-        </div>
 
         <div class="col-8">
             <div class="row">
 
-                <div *ngFor="let usuario of Usuarios" class="col-4"> <!--Usuarios (crud.component.ts)-->
+                <div *ngFor="let carrito of Carritos" class="col-4"> <!--Productos (home.component.ts)-->
                     <div class="card bg-light mb-3">
-                        <div class="card-header">{{usuario.nombre}}</div>
+                        <div class="card-header">Nombre: {{carrito.nombre}}</div>
+                            <!--<app-detalle [nombre]="producto.nombre"> </app-detalle>-->
                         <div class="card-body">
-                            <h5 class="card-title">{{usuario.apellido}}</h5>
-                            <h5 class="card-title">{{usuario.creditos}}</h5>
+                            <h5 class="card-title">Precio: {{carrito.precio}}</h5>
+                            <img src="../assets/productos/{{carrito.foto}}" class="card-img-top" alt="...">
+                            <h5 class="card-title">Descripcion: {{carrito.descripcion}}</h5>
                         </div>
                         <div class="card-footer">
-                            <button type="submit"
-                                (click)="getDataUser(usuario.id_usuario,usuario.nombre,usuario.apellido,usuario.creditos)"
-                                class="btn btn-warning btn-block">Edit User</button>
-                            <button (click)="deleteUser(usuario.id_usuario)" type="submit"  class="btn btn-danger btn-block">Delete
-                                User</button>
+                            <button (click)="deleteCarrito(carrito.id_usuario,carrito.id_producto)" type="submit"  class="btn btn-danger btn-block">Quitar
+                                producto</button>
                         </div>
                     </div>
                 </div>

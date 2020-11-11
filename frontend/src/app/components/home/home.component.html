@@ -73,6 +73,7 @@
                         </div>
                         <div class="card-footer">
                             <button type="submit"
+                                (click)="addCarrito(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.foto)"
                                 class="btn btn-warning btn-block">Agregar al carrito</button>
                             <button type="submit"
                                 (click)="getDataProducto(producto.id_producto, producto.nombre, producto.precio, producto.descripcion, producto.foto, producto.id_categoria, producto.id_usuario)"

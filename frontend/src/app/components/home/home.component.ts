@@ -3,6 +3,7 @@ import { UserService } from "../../services/user.service"; //Metodos con los end
 import { ProductInterface } from "../../models/product-interface"; //interfaz de producto
 import { CategoriaInterface } from "../../models/categoria-interface"; //interfaz de categoria producto
 import { UserInterface } from 'src/app/models/user-interface';
+import { CarritoInterface } from "../../models/carrito-interface";
 import { Router } from "@angular/router";
 
 @Component({
@@ -53,6 +54,17 @@ export class HomeComponent implements OnInit {
     this.service.id_usuario_P = id_usuario;
     
     this.router.navigate(['/detalle']);
+  }
+
+  addCarrito(id_producto,nombre,precio,descripcion,foto){
+    this.service.AddCarrito(nombre, precio, foto, descripcion, this.usuarioLogueado.id_usuario, id_producto)
+      .subscribe((res: CarritoInterface[]) => {
+        if (res['Mensaje']) {
+          console.log("Se agrego el producto al carrito");
+        } else {
+            console.log('No se pudo agregar el producto al carrito');
+        }
+      })
   }
 
   buscarProducto(){

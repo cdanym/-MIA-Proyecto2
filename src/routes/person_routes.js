@@ -103,6 +103,48 @@ router.delete("/deleteUser/:id_usuario", async (req, res) => {
     res.status(200).json({ "Mensaje": "Usuario Eliminado" })
 })
 
+//CREATE CARRITO
+router.post('/addCarrito', async (req, res) => {
+    const {nombre, precio, foto, descripcion, id_usuario, id_producto} = req.body; //{nombre que le corresponde a cada parametro del cuerpo (tienen que ser los mismos nombres al del json)}
+    
+    sql = "insert into carrito(nombre,precio,foto,descripcion,id_usuario,id_producto)"+ 
+    "values (:nombre,:precio,:foto,:descripcion,:id_usuario,:id_producto)";
+    await BD.Open(sql, [nombre, precio, foto, descripcion, id_usuario, id_producto], true);
+    res.status(201).json({Mensaje: "Se agrego el producto al carrito"});
+})
+
+//GET CARRITO DE UN USUARIO
+router.get("/getCarrito/:id_usuario", async (req, res)=>{
+    const { id_usuario } = req.params;
+    sql = "select * from carrito where id_usuario = :id_usuario";
+    let result = await BD.Open(sql, [id_usuario], false);
+    Productos = []; //ARREGLO DONDE SE GUARDARA EL PRODUCTO O LOS PRODUCTOS
+    result.rows.map(producto => { //el resultado de la consulta lo va a separar en filas (cada fila es un registro)
+        let productoEsquema = {
+            "id_carrito": producto[0],
+            "nombre": producto[1],
+            "precio": producto[2],
+            "foto": producto[3],
+            "descripcion": producto[4],
+            "id_usuario": producto[5],
+            "id_producto": producto[6],
+        }
+        Productos.push(productoEsquema); //agrega cada registro en formato json al arreglo Users
+    })
+    //res.send('Se obtuvo el producto buscado');
+    res.status(200).json(Productos);
+})
+
+//DELETE CARRITO
+router.post("/deleteCarrito", async (req, res) => {
+    const {id_usuario, id_producto} = req.body;
+    //sql = "update person set state=0 where codu=:codu";
+    sql = "delete from carrito where id_usuario=:id_usuario and id_producto=:id_producto";
+    await BD.Open(sql, [id_usuario, id_producto], true);
+
+    res.status(200).json({ "Mensaje": "Producto eliminado del carrito" })
+})
+
 
 //CREATE PRODUCTO
 router.post('/addProducto', async (req, res) => {

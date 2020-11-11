@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../services/user.service"; //Metodos con los endpoint
 import { UserInterface } from "../../models/user-interface"; //interfaz de usuario
+import { CarritoInterface } from "../../models/carrito-interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-crud',
@@ -9,27 +11,35 @@ import { UserInterface } from "../../models/user-interface"; //interfaz de usuar
 })
 export class CrudComponent implements OnInit {
 
-  constructor(public crudService: UserService) { }
+  constructor(public crudService: UserService,public router: Router) { }
 
   ngOnInit(): void {
-    this.crudService.GetUsers().subscribe((res:UserInterface[])=>{
-      this.Usuarios =res;
-      //console.log(this.Usuarios[0].username);
-    })
+    this.usuarioLogueado = this.crudService.getCurrentUser();
+
+    this.crudService.GetCarrito(this.usuarioLogueado.id_usuario).subscribe((res:CarritoInterface[])=>{
+      this.Carritos = res;
+    });
   }
 
-  id_usuario: string = "";
-  nombre: string = "hola";
-  apellido: string = "";
-  pais: string="";
-  fecha_nac: string=null;
-  correo: string="";
-  contrasenia: string="";
-  foto_perfil: string =null;
-  creditos: string = "";
-  Usuarios: UserInterface[] = [];
+  usuarioLogueado: UserInterface = null;
 
-  addUser() {
+  id_usuario: string = "";
+
+  Carritos: CarritoInterface[] = [];
+
+  deleteCarrito(id_usuario,id_producto){
+    this.crudService.DeleteCarrito(id_usuario,id_producto).subscribe((res)=>{
+      //this.Carritos = res;
+    });
+    console.log("Se removio el producto de tu carrito");
+
+    this.crudService.GetCarrito(this.usuarioLogueado.id_usuario).subscribe((res:CarritoInterface[])=>{
+      this.Carritos = res;
+    });
+    this.router.navigate(['/crud']);
+  }
+
+  /*addUser() {
     this.crudService.AddUser(this.nombre, this.apellido, this.pais, this.fecha_nac, this.correo, this.contrasenia, this.foto_perfil, 1000)
       .subscribe((res: UserInterface[]) => {
         this.Usuarios = res;
@@ -52,22 +62,12 @@ export class CrudComponent implements OnInit {
     this.creditos = creditos;
   }
 
-  updateUser(){
-    /*this.crudService.UpdateUser(this.id_usuario,this.nombre,this.apellido,this.creditos)
-    .subscribe((res:UserInterface[])=>{
-      this.Usuarios = res;
-      this.id_usuario = "";
-      this.nombre = "";
-      this.apellido = "";
-      this.creditos = "";
-    })*/
-  }
 
   deleteUser(codu){
     this.crudService.DeleteUser(codu).subscribe((res:UserInterface[])=>{
       this.Usuarios = res;
     })
-  }
+  }*/
 
   CerrarSesion() {
     this.crudService.logout();
