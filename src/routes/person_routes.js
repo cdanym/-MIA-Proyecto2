@@ -364,7 +364,115 @@ router.put("/updateMeGusta", async (req, res) => {
     
 })
 
+//PRODUCTOS CON MAS ME GUSTA
+router.get("/getConsulta2", async(req,res)=>{
+    sql = "select producto.nombre, producto.id_producto, count(producto.id_producto) as conteo from producto\
+    inner join me_gusta on producto.id_producto = me_gusta.id_producto\
+    where me_gusta.estado = 1\
+    group by producto.nombre, producto.id_producto\
+    order by conteo desc";
+    let result = await BD.Open(sql,[],false);
+    Resultados = []; //arreglo
+    result.rows.map(resultado => { //el resultado de la consulta lo va a separar en filas (cada fila es un registro)
+        let Esquema = {
+            "nombre": resultado[0],
+            "id_producto": resultado[1],
+            "conteo": resultado[2]
+        }
+        Resultados.push(Esquema); //agrega cada registro en formato json al arreglo
+    })
+    res.json(Resultados);
+})
 
+//PRODUCTOS CON MAS NO ME GUSTA
+router.get("/getConsulta3", async(req,res)=>{
+    sql = "select producto.nombre, producto.id_producto, count(producto.id_producto) as conteo from producto\
+    inner join me_gusta on producto.id_producto = me_gusta.id_producto\
+    where me_gusta.estado = 2\
+    group by producto.nombre, producto.id_producto\
+    order by conteo desc";
+    let result = await BD.Open(sql,[],false);
+    Resultados = []; //arreglo
+    result.rows.map(resultado => { //el resultado de la consulta lo va a separar en filas (cada fila es un registro)
+        let Esquema = {
+            "nombre": resultado[0],
+            "id_producto": resultado[1],
+            "conteo": resultado[2]
+        }
+        Resultados.push(Esquema); //agrega cada registro en formato json al arreglo
+    })
+    res.json(Resultados);
+})
+
+//CLIENTES CON MAS Y MENOS CREDITOS
+router.get("/getConsulta4", async(req,res)=>{
+    sql = "select nombre, creditos as conteo from usuario where id_usuario<>5 order by creditos desc";
+    let result = await BD.Open(sql,[],false);
+    Resultados = []; //arreglo
+    result.rows.map(resultado => { //el resultado de la consulta lo va a separar en filas (cada fila es un registro)
+        let Esquema = {
+            "nombre": resultado[0],
+            "id_producto": 0,
+            "conteo": resultado[1]
+        }
+        Resultados.push(Esquema); //agrega cada registro en formato json al arreglo
+    })
+    res.json(Resultados);
+})
+
+//CLIENTES CON MAS DENUNCIAS
+router.get("/getConsulta5", async(req,res)=>{
+    sql = "select usuario.nombre, count(denuncia.id_denuncia) as conteo from usuario\
+    inner join denuncia on usuario.id_usuario = denuncia.id_usuario\
+    group by usuario.nombre\
+    order by conteo desc";
+    let result = await BD.Open(sql,[],false);
+    Resultados = []; //arreglo
+    result.rows.map(resultado => { //el resultado de la consulta lo va a separar en filas (cada fila es un registro)
+        let Esquema = {
+            "nombre": resultado[0],
+            "id_producto": 0,
+            "conteo": resultado[1]
+        }
+        Resultados.push(Esquema); //agrega cada registro en formato json al arreglo
+    })
+    res.json(Resultados);
+})
+
+//CLIENTES CON MAS PUBLICACIONES
+router.get("/getConsulta6", async(req,res)=>{
+    sql = "select usuario.nombre, count(producto.id_usuario) as conteo from producto\
+    inner join usuario on usuario.id_usuario = producto.id_usuario\
+    group by usuario.nombre\
+    order by conteo desc";
+    let result = await BD.Open(sql,[],false);
+    Resultados = []; //arreglo
+    result.rows.map(resultado => { //el resultado de la consulta lo va a separar en filas (cada fila es un registro)
+        let Esquema = {
+            "nombre": resultado[0],
+            "id_producto": 0,
+            "conteo": resultado[1]
+        }
+        Resultados.push(Esquema); //agrega cada registro en formato json al arreglo
+    })
+    res.json(Resultados);
+})
+
+//PAISES CON MAS CREDITOS
+router.get("/getConsulta7", async(req,res)=>{
+    sql = "select pais, sum(creditos) as conteo from usuario group by pais order by conteo desc";
+    let result = await BD.Open(sql,[],false);
+    Resultados = []; //arreglo
+    result.rows.map(resultado => { //el resultado de la consulta lo va a separar en filas (cada fila es un registro)
+        let Esquema = {
+            "nombre": resultado[0],
+            "id_producto": 0,
+            "conteo": resultado[1]
+        }
+        Resultados.push(Esquema); //agrega cada registro en formato json al arreglo
+    })
+    res.json(Resultados);
+})
 
 
 //LOGIN
@@ -396,6 +504,7 @@ router.post("/signUp", async (req,res)=>{
         res.send("No se encontro el usuario");
     }
 })
+
 
 
 module.exports = router;

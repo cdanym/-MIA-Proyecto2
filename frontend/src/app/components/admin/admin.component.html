@@ -55,7 +55,7 @@
             <br>
             <ul class="list-group">
                     <li class="list-group-item active">CONSULTA: </li>
-                    <li class="list-group-item"> ... </li>
+                    <li class="list-group-item"*ngFor="let consulta of Consultas"> {{consulta.nombre}}: {{consulta.conteo}} </li>
             </ul>
             <br><hr><br>
             

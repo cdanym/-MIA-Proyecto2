@@ -235,6 +235,42 @@ export class UserService {
     ).pipe(map(data => data));
   }
 
+  //CONSULTA 2
+  GetConsulta2(){
+    const url = "http://localhost:3000/getConsulta2";
+    return this.http.get(url);
+  }
+
+  //CONSULTA 3
+  GetConsulta3(){
+    const url = "http://localhost:3000/getConsulta3";
+    return this.http.get(url);
+  }
+
+  //CONSULTA 4
+  GetConsulta4(){
+    const url = "http://localhost:3000/getConsulta4";
+    return this.http.get(url);
+  }
+
+  //CONSULTA 5
+  GetConsulta5(){
+    const url = "http://localhost:3000/getConsulta5";
+    return this.http.get(url);
+  }
+
+  //CONSULTA 6
+  GetConsulta6(){
+    const url = "http://localhost:3000/getConsulta6";
+    return this.http.get(url);
+  }
+
+  //CONSULTA 7
+  GetConsulta7(){
+    const url = "http://localhost:3000/getConsulta7";
+    return this.http.get(url);
+  }
+
 
   //LOGIN
   Login(nombre,contrasenia) {

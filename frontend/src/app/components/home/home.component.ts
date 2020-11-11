@@ -81,6 +81,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/perfil']);
   }
 
+  carrito(){
+    this.router.navigate(['./crud']);
+  }
+
   CerrarSesion() {
     this.service.logout();
   }
